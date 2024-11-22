@@ -10,10 +10,10 @@
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between">
                     <div class="">
-                        <h6 class="m-0 font-weight-bold text-primary">Category List</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Motorcyle Category List</h6>
                     </div>
                     <div class="">
-                        <a href="{{ route('categoryCreate') }}"><i class="fa-solid fa-plus"></i> Add Category</a>
+                        <a href="{{ route('categoryCreatePage') }}"><i class="fa-solid fa-plus"></i> Add Category</a>
                     </div>
                 </div>
             </div>
@@ -22,9 +22,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr class=" text-center">
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th>Created_at</th>
+                                <th>Category Name</th>
+                                <th>Category Image</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -32,17 +31,15 @@
                         @foreach ($data as $item)
                         <tbody>
                             <tr class=" text-center">
-                                <td>{{ $item->id}}</td>
-                                <td>{{ $item->name}}</td>
-                                <td>{{ $item->created_at}}</td>
-                                <td><a href="{{ route( 'categoryEdit',$item->id ) }}"><i class="fa-solid fa-pen-to-square "></i></a></td>
-                                <td><a href="{{ route( 'categoryDelete',$item->id ) }}"><i class="fa-solid fa-trash-can text-danger text-center"></i></i></a></td>
+                                <td class=" align-content-around"><h5 class="text-danger">{{ $item->category_name}}</h5></td>
+                                <td class=" align-content-around"><img src="{{ asset('/admin/categoryImages/'.$item->category_image) }}" class="img-thumbnail rounded-circle" style="height: 50px" alt=""></td>
+                                <td class=" align-content-around"><a href="{{ route('categoryUpdatePage',$item->id) }}"><i class="fa-solid fa-2x fa-pen-to-square "></i></a></td>
+                                <td class=" align-content-around"><a href="{{ route ('categoryDelete',$item->id) }}"><i class="fa-solid fa-2x fa-trash-can text-danger text-center"></i></i></a></td>
                             </tr>
                         </tbody>
                         @endforeach
                     </table>
                 </div>
-                <span>{{ $data->links() }}</span>
             </div>
         </div>
 
