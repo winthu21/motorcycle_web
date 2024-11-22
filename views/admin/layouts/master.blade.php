@@ -31,12 +31,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fa-solid fa-motorcycle"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Admin Dashboard</div>
             </a>
@@ -57,22 +57,22 @@
                 <a class="nav-link" href="{{ route('brandCreatePage') }}"><i class="fa-solid fa-sitemap"></i></i><span>Create Motorcycle Companies</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-sitemap"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route('categoryListPage') }}"><i class="fa-solid fa-sitemap"></i></i><span>Motorcycle Category List</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-circle-plus"></i></i><span>Add Category </span></a>
+                <a class="nav-link" href="{{ route('categoryCreatePage') }}"><i class="fa-solid fa-circle-plus"></i></i><span>Add Category</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-layer-group"></i><span>Product List </span></a>
+                <a class="nav-link" href=""><i class="fa-solid fa-layer-group"></i><span>Motorcycle List </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-plus"></i></i><span>Add Product </span></a>
+                <a class="nav-link" href=""><i class="fa-solid fa-plus"></i></i><span>Add Motorcycle</span></a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href=""><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
             </li>
 
@@ -82,7 +82,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a class="nav-link" href=""><i class="fa-solid fa-users"></i><span>Admin and User List </span></a>
