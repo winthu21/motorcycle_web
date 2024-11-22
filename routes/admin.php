@@ -18,5 +18,10 @@ Route::group(['prefix'=>'admin'],function(){
     });
 
     // Bike Category
-    Route::get('bikeCategoryPage',[ BikeCategoryController::class,'bikeCategoryPage'])->name('bikeCategoryPage');
+    Route::get('categoryListPage',[ BikeCategoryController::class,'categoryListPage'])->name('categoryListPage');
+    Route::get('categoryCreatePage',[ BikeCategoryController::class,'categoryCreatePage'])->name('categoryCreatePage');
+    Route::post('categoryCreate',[ BikeCategoryController::class,'categoryCreate'])->name('categoryCreate');
+    Route::get('categoryUpdatePage/{id}',[ BikeCategoryController::class,'categoryUpdatePage'])->name('categoryUpdatePage');
+    Route::post('categoryUpdate',[ BikeCategoryController::class,'categoryUpdate'])->name('categoryUpdate');
+    Route::get('categoryDelete/{id}',[ BikeCategoryController::class,'categoryDelete'])->name('categoryDelete');
 });
