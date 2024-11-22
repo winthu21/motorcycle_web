@@ -31,10 +31,10 @@
                         @foreach ($data as $item)
                             <tbody>
                                 <tr class=" text-center">
-                                    <td>{{ $item->brand_name}}</td>
-                                    <td><img src="{{ asset('/admin/brandImages/'.$item->brand_image) }}" class="img-thumbnail w-25 rounded-circle"></td>
-                                    <td><a href="{{ route('brandEditPage',$item->id) }}"><i class="fa-solid fa-pen-to-square "></i></a></td>
-                                    <td><a href="{{ route('brandDelete',$item->id)}}"><i class="fa-solid fa-trash-can text-danger text-center"></i></i></a></td>
+                                    <td class=" align-content-around"><h4 class="text-primary">{{ $item->brand_name}}</h4></td>
+                                    <td class=" align-content-around"><img src="{{ asset('/admin/brandImages/'.$item->brand_image) }}" class="img-thumbnail" style="height: 50px"></td>
+                                    <td class=" align-content-around"><a href="{{ route('brandEditPage',$item->id) }}"><i class="fa-solid fa-2x fa-pen-to-square "></i></a></td>
+                                    <td class=" align-content-around"><a href="{{ route('brandDelete',$item->id)}}"><i class="fa-solid fa-2x fa-trash-can text-danger text-center"></i></i></a></td>
                                 </tr>
                             </tbody>
                         @endforeach
