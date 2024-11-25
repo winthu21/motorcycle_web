@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BikeBrandController;
+use App\Http\Controllers\Admin\BikeDetailsController;
 use App\Http\Controllers\Admin\BikeCategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
@@ -24,4 +25,7 @@ Route::group(['prefix'=>'admin'],function(){
     Route::get('categoryUpdatePage/{id}',[ BikeCategoryController::class,'categoryUpdatePage'])->name('categoryUpdatePage');
     Route::post('categoryUpdate',[ BikeCategoryController::class,'categoryUpdate'])->name('categoryUpdate');
     Route::get('categoryDelete/{id}',[ BikeCategoryController::class,'categoryDelete'])->name('categoryDelete');
+
+    // bike
+    Route::get('bikeDetailsCreatePage',[ BikeDetailsController::class,'bikeDetailsCreatePage'])->name('bikeDetailsCreatePage');
 });
