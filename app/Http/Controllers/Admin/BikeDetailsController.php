@@ -11,4 +11,9 @@ class BikeDetailsController extends Controller
     public function bikeDetailsCreatePage(){
         return view('admin.bikeDetails.create');
     }
+
+    //bikeDetails Create
+    public function bikeDetailsCreate(Request $request){
+        dd($request->toArray());
+    }
 }
