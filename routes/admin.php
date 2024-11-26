@@ -28,4 +28,5 @@ Route::group(['prefix'=>'admin'],function(){
 
     // bike
     Route::get('bikeDetailsCreatePage',[ BikeDetailsController::class,'bikeDetailsCreatePage'])->name('bikeDetailsCreatePage');
+    Route::post('bikeDetailsCreate',[ BikeDetailsController::class,'bikeDetailsCreate'])->name('bikeDetailsCreate');
 });
