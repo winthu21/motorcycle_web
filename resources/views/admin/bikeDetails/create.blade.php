@@ -34,7 +34,7 @@
                                 <div class="col-lg-8 mb-3">
                                     <label class="form-label">Motorcycle Name</label>
                                     <input type="text" class="form-control @error('bike_name') is-invalid @enderror"
-                                        bike_name="bike_name" value="{{ old('bike_name') }}" placeholder="Motorcycle bike_name">
+                                        name="bike_name" value="{{ old('bike_name') }}" placeholder="Motorcycle bike_name">
                                     @error('bike_name')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
@@ -88,13 +88,13 @@
                                 <div class="col-lg-4 mb-3 ">
                                     <label  class="form-label">Production Year</label>
                                     <div>
-                                        <select name="model_year_from" class="form-control @error('model_year_from') is-invalid @enderror">
+                                        <select name="model_year" class="form-control @error('model_year') is-invalid @enderror">
                                             <option value="">Year from</option>
                                             @for ($i = 1950; $i <= 2025; $i++)
-                                                <option value="{{ $i }}" @if (old('model_year_from') == $i) selected @endif>{{ $i }}</option>
+                                                <option value="{{ $i }}" @if (old('model_year') == $i) selected @endif>{{ $i }}</option>
                                             @endfor
                                         </select>
-                                        @error('model_year_from')
+                                        @error('model_year')
                                             <small class=" invalid-feedback">{{ $message }}</small>
                                         @enderror
 
