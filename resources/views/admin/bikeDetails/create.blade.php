@@ -18,20 +18,9 @@
                 <form action="{{ route('bikeDetailsCreate') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-4 p-3">
-                            <div class="mx-2">
-                                <label class="form-label">Image</label>
-                                <img class="img-thumbnail" id="output" src="" alt="">
-                                <input type="file" class="form-control @error('bike_image') is-invalid @enderror" name="bike_image[]" onchange="loadFile(event)" multiple>
-                                @error('bike_image')
-                                    <small class="invalid-feedback">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                        </div>
-                        <div class="col-lg">
+                        <div class="col-lg-6 mx-3">
                             <div class="row">
-                                <div class="col-lg-8 mb-3">
+                                <div class="col-lg mb-3">
                                     <label class="form-label">Motorcycle Name</label>
                                     <input type="text" class="form-control @error('bike_name') is-invalid @enderror"
                                         name="bike_name" value="{{ old('bike_name') }}" placeholder="Motorcycle bike_name">
@@ -41,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-8 mb-3">
+                                <div class="col-lg mb-3">
                                     <label class="form-label">Company</label>
                                     <select name="brand_id" class="form-control  @error('brand_id') is-invalid @enderror">
                                         <option value="">Choose Company...</option>
@@ -55,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-8 mb-3">
+                                <div class="col-lg mb-3">
                                     <label class="form-label">Motorcycle Category</label>
                                     <select name="category_id" class="form-control  @error('category_id') is-invalid @enderror">
                                         <option value="">Choose Category...</option>
@@ -69,14 +58,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Motrocycle Code Name</label>
                                     <input type="text" class="form-control @error('bike_code_name') is-invalid @enderror" name="bike_code_name" value="{{ old('bike_code_name') }}" placeholder="Motorcycle Code">
                                     @error('bike_code_name')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Chassis Number</label>
                                     <input type="text" class="form-control @error('chassis') is-invalid @enderror" name="chassis" value="{{ old('chassis') }}" placeholder="Product chassis">
                                     @error('chassis')
@@ -84,46 +73,45 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                            <div class="row mb-3">
+                                <div class="col-lg-10">
                                     <label  class="form-label">Production Year</label>
-                                    <div>
-                                        <select name="model_year" class="form-control @error('model_year') is-invalid @enderror">
-                                            <option value="">Year from</option>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select name="model_year_from" class="form-control @error('model_year_from') is-invalid @enderror">
+                                        <option value="">Year from</option>
                                             @for ($i = 1950; $i <= 2025; $i++)
-                                                <option value="{{ $i }}" @if (old('model_year') == $i) selected @endif>{{ $i }}</option>
+                                                <option value="{{ $i }}" @if (old('model_year_from') == $i) selected @endif>{{ $i }}</option>
                                             @endfor
-                                        </select>
-                                        @error('model_year')
-                                            <small class=" invalid-feedback">{{ $message }}</small>
-                                        @enderror
-
-                                        <select name="model_year_to" class="form-control @error('model_year_to')
-                                            is-invalid
-                                        @enderror">
-                                            <option value="">Year to</option>
+                                    </select>
+                                    @error('model_year_from')
+                                        <small class=" invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-6">
+                                    <select name="model_year_to" class="form-control @error('model_year_to') is-invalid @enderror">
+                                        <option value="">Year to</option>
                                             @for ($j = 1950; $j <= 2025; $j++)
                                                 <option value="{{ $j }}" @if (old('model_year_to') == $j) selected @endif>{{ $j }}</option>
                                             @endfor
-                                            <option value="present" @if (old('model_year_from') == 'present')
-                                                selected
-                                            @endif>Present</option>
-                                        </select>
-                                        @error('model_year_to')
-                                            <small class=" invalid-feedback">{{ $message }}</small>
-                                        @enderror
-                                    </div>
+                                        <option value="present" @if (old('model_year_from') == 'present')
+                                            selected
+                                        @endif>Present</option>
+                                    </select>
+                                    @error('model_year_to')
+                                        <small class=" invalid-feedback">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Engine Power (cc)</label>
                                     <input type="text" class="form-control @error('engine_power') is-invalid @enderror" name="engine_power" value="{{ old('engine_power') }}" placeholder="Engine Power (cc)">
                                     @error('engine_power')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">HP & Torque</label>
                                     <input type="text" class="form-control @error('hp_torque') is-invalid @enderror" name="hp_torque" value="{{ old('hp_torque') }}" placeholder="Product hp_torque">
                                     @error('hp_torque')
@@ -132,14 +120,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Front Brake System</label>
                                     <input type="text" class="form-control @error('front_brake') is-invalid @enderror" name="front_brake" value="{{ old('front_brake') }}" placeholder="Front Brake System">
                                     @error('front_brake')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Rear Brake</label>
                                     <input type="text" class="form-control @error('rear_brake') is-invalid @enderror" name="rear_brake" value="{{ old('rear_brake') }}" placeholder="Rear Brake">
                                     @error('rear_brake')
@@ -148,14 +136,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Fuel System</label>
                                     <input type="text" class="form-control @error('fuel_system') is-invalid @enderror" name="fuel_system" value="{{ old('fuel_system') }}" placeholder="Fuel System">
                                     @error('fuel_system')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Wheel Sizes</label>
                                     <input type="text" class="form-control @error('wheel_size') is-invalid @enderror" name="wheel_size" value="{{ old('wheel_size') }}" placeholder="Wheel Sizes">
                                     @error('wheel_size')
@@ -164,14 +152,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Front Suspension</label>
                                     <input type="text" class="form-control @error('suspension_front') is-invalid @enderror" name="suspension_front" value="{{ old('suspension_front') }}" placeholder="Front suspension">
                                     @error('suspension_front')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Rear Suspension</label>
                                     <input type="text" class="form-control @error('suspension_rear') is-invalid @enderror" name="suspension_rear" value="{{ old('suspension_rear') }}" placeholder="Rear Suspension">
                                     @error('suspension_rear')
@@ -180,14 +168,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Drive Type</label>
                                     <input type="text" class="form-control @error('chain_type') is-invalid @enderror" name="chain_type" value="{{ old('chain_type') }}" placeholder="Drive Type">
                                     @error('chain_type')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Swing Arm</label>
                                     <input type="text" class="form-control @error('swing_arm') is-invalid @enderror" name="swing_arm" value="{{ old('swing_arm') }}" placeholder="Swing Arm">
                                     @error('swing_arm')
@@ -196,14 +184,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Display Type</label>
                                     <input type="text" class="form-control @error('display') is-invalid @enderror" name="display" value="{{ old('display') }}" placeholder="Display Type">
                                     @error('display')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Headlight</label>
                                     <input type="text" class="form-control @error('headlight') is-invalid @enderror" name="headlight" value="{{ old('headlight') }}" placeholder="Headlight">
                                     @error('headlight')
@@ -212,14 +200,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Frame Type</label>
                                     <input type="text" class="form-control @error('frame') is-invalid @enderror" name="frame" value="{{ old('frame') }}" placeholder="Frame Type">
                                     @error('frame')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Weight</label>
                                     <input type="text" class="form-control @error('weight') is-invalid @enderror" name="weight" value="{{ old('weight') }}" placeholder="Weight">
                                     @error('weight')
@@ -228,14 +216,14 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-lg-4 mb-3 ">
+                                <div class="col-lg-6 mb-3 ">
                                     <label  class="form-label">Starter</label>
                                     <input type="text" class="form-control @error('starter') is-invalid @enderror" name="starter" value="{{ old('starter') }}" placeholder="Starter">
                                     @error('starter')
                                         <small class=" invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4 mb-3 mx-2">
+                                <div class="col-lg-6 mb-3">
                                     <label  class="form-label">Top Speed</label>
                                     <input type="text" class="form-control @error('speed') is-invalid @enderror" name="speed" value="{{ old('speed') }}" placeholder="Top Speed">
                                     @error('speed')
@@ -246,6 +234,63 @@
                             <div class="row p-2">
                                 <div class="col-lg">
                                     <input type="submit" value="Create" class="btn btn-primary p-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="row p-2 ">
+                                <div class="mx-2">
+                                    <label class="form-label">Front View Image</label>
+                                    <img class="img-thumbnail w-50 mb-1" id="front" src="" alt="">
+                                    <input type="file" class="form-control @error('front_image') is-invalid @enderror" name="front_image" onchange="loadFile(event,'front')" multiple>
+                                    @error('front_image')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="mx-2">
+                                    <label class="form-label">Rear View Image</label>
+                                    <img class="img-thumbnail w-50" id="rear" src="" alt="">
+                                    <input type="file" class="form-control @error('back_image') is-invalid @enderror" name="back_image" onchange="loadFile(event,'rear')" multiple>
+                                    @error('back_image')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="mx-2">
+                                    <label class="form-label">Right Side Image</label>
+                                    <img class="img-thumbnail w-50" id="right" src="" alt="">
+                                    <input type="file" class="form-control @error('right_image') is-invalid @enderror" name="right_image" onchange="loadFile(event,'right')" multiple>
+                                    @error('right_image')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="mx-2">
+                                    <label class="form-label">Left Side Image</label>
+                                    <img class="img-thumbnail w-50" id="left" src="" alt="">
+                                    <input type="file" class="form-control @error('left_image') is-invalid @enderror" name="left_image" onchange="loadFile(event,'left')" multiple>
+                                    @error('left_image')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="mx-2">
+                                    <label class="form-label">Top View Image</label>
+                                    <img class="img-thumbnail w-50" id="top" src="" alt="">
+                                    <input type="file" class="form-control @error('top_image') is-invalid @enderror" name="top_image" onchange="loadFile(event,'top')" multiple>
+                                    @error('top_image')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                    <hr>
                                 </div>
                             </div>
                         </div>

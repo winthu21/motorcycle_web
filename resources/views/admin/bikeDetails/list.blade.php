@@ -64,7 +64,7 @@
                                     <td>{{ $item->engine_power}}</td>
                                     <td><a href="{{ route('bikeDetailsPage',$item->id) }}"><i class="fa-solid fa-circle-info"></i></a></td>
                                     <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                    <td><a href=""><i class="fa-solid fa-trash"></i></a></td>
+                                    <td><a href="{{ route('deleteBikeDetails',$item->id) }}"><i class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
