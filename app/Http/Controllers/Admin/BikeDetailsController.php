@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Bike;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\BikeImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -21,18 +22,49 @@ class BikeDetailsController extends Controller
     public function bikeDetailsCreate(Request $request){
         // $this->checkValidation($request);
 
+        // dd($request);
         $data = $this->requestData($request);
-        $bikeName = $data['bike_name'];
-
-        foreach ($request->file('bike_image') as $item){
-            $imageName = $bikeName.'_'.$item->getClientOriginalName();
-            $directory_path = public_path().'/admin/bikeImages/'.$bikeName;
-            $item->move($directory_path , $imageName);
-            $data ['bike_image'][] = $imageName;
-        }
-        $data['bike_image'] = $string_version = implode(',', $data['bike_image']);
-
         Bike::create($data);
+
+        $bikeName = $data['bike_name'];
+        $bikeId = Bike::select('bikes.id')
+                    ->orderBy('bikes.created_at','desc')
+                    ->first();
+        // dd($bikeId);
+
+        $directory_path = public_path().'/admin/bikeImages/'.$bikeName;
+        if ( $request->hasFile('front_image') ){
+            $frontImageName = $bikeName.'_'.uniqid().$request->file('front_image')->getClientOriginalName();
+            $request->file('front_image')->move( $directory_path, $frontImageName );
+            $image['front_image'] = $frontImageName;
+        }
+
+        if ( $request->hasFile('back_image') ){
+            $backImageName = $bikeName.'_'.uniqid().$request->file('back_image')->getClientOriginalName();
+            $request->file('back_image')->move( $directory_path, $backImageName );
+            $image['back_image'] = $backImageName;
+        }
+        if ( $request->hasFile('right_image') ){
+            $rightImageName = $bikeName.'_'.uniqid().$request->file('right_image')->getClientOriginalName();
+            $request->file('right_image')->move( $directory_path, $rightImageName );
+            $image['right_image'] = $rightImageName;
+        }
+        if ( $request->hasFile('left_image') ){
+            $leftImageName = $bikeName.'_'.uniqid().$request->file('left_image')->getClientOriginalName();
+            $request->file('left_image')->move( $directory_path, $leftImageName );
+            $image['left_image'] = $leftImageName;
+        }
+        if ( $request->hasFile('top_image') ){
+            $topImageName = $bikeName.'_'.uniqid().$request->file('top_image')->getClientOriginalName();
+            $request->file('top_image')->move( $directory_path, $topImageName );
+            $image['top_image'] = $topImageName;
+        }
+
+        // $directory_path = public_path().'/admin/bikeImages/'.$bikeName;
+        // $item->move($directory_path , $imageName);
+        $image['bike_id'] = $bikeId->id;
+        // dd($image);
+        BikeImage::create($image);
         return to_route('bikeDetailsCreatePage');
     }
 
@@ -60,6 +92,52 @@ class BikeDetailsController extends Controller
         $data['bike_image'] = explode(",",$data['bike_image']);
         // dd($data);
         return view('admin.bikeDetails.detail',compact('data'));
+    }
+
+    // Delete bike details
+    public function deleteBikeDetails($id){
+        $imageNames = Bike::select('bikes.bike_image')->where('bikes.id',$id)->first();
+        $bikeName = Bike::select('bikes.bike_name')->where('bikes.id',$id)->first();
+        $imageNameArray = json_decode($imageNames, true);
+
+        if (!is_array($imageNameArray)) {
+            $imageNameArray = explode(',', $imageNames);
+            }
+        // $imageNames = explode(',',$imageName);
+        foreach ($imageNameArray as $item){
+            $filePath = public_path('/admin/bikeImages/' . $bikeName['bike_name'] . '/' . $item);
+            // Debugging: Print the file path \Log::info('Deleting File: ' . $filePath);
+            \Log::info('Deleting File: ' . $filePath);
+            if (file_exists($filePath)){
+                if (unlink($filePath)) {
+                    \Log::info('File deleted successfully: ' . $filePath);
+                } else {
+                    \Log::error('Failed to delete file: ' . $filePath);
+                }
+            } else {
+                \Log::error('File does not exist: ' . $filePath);
+            }
+        }
+
+        // Delete the parent folder if it is empty
+        $parentFolderPath = public_path('/admin/bikeImages/' . $bikeName['bike_name']);
+        if (is_dir($parentFolderPath) && count(glob($parentFolderPath . '/*')) === 0) {
+            if (rmdir($parentFolderPath)) {
+                \Log::info('Parent folder deleted successfully: ' . $parentFolderPath);
+            } else {
+                \Log::error('Failed to delete parent folder: ' . $parentFolderPath);
+            }
+        } else {
+            \Log::error('Parent folder is not empty or does not exist: ' . $parentFolderPath);
+        }
+
+        // Delete the bike details from the database
+        if (Bike::where('id', $id)->delete()) {
+            \Log::info('Bike details deleted from database for ID: ' . $id);
+        } else {
+            \Log::error('Failed to delete bike details from database for ID: ' . $id);
+        }
+        return back()->with('success', 'Bike details deleted successfully!');
     }
 
     //validation
@@ -97,7 +175,7 @@ class BikeDetailsController extends Controller
             'brand_id'=> $request->brand_id,
             'category_id'=> $request->category_id,
             'engine_power'=> $request->engine_power,
-            'model_year'=> $request->model_year,
+            'model_year_from'=> $request->model_year_from,
             'model_year_to'=> $request->model_year_to,
             'bike_code_name' => $request->bike_code_name,
             'chassis' => $request->chassis,
