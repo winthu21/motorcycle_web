@@ -2,19 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Guest\GuestController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::redirect('/', '/user');
 
-Route::get('/', function () {
-    return to_route('home');
-});
+// Admin Routes
+require __DIR__.'/admin.php';
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// guest Routes
+require __DIR__.'/guest.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -24,11 +21,3 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// admin
-require_once __DIR__.'/admin.php';
-
-// guest
-require_once __DIR__.'/guest.php';
-
-// // guest
-// Route::get('home', [GuestController::class,'home'])->name('home');
